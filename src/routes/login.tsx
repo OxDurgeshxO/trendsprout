@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -8,14 +8,21 @@ function LoginPage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <nav className="flex items-center justify-between px-6 py-4 sm:px-10">
-        <a href="/" className="text-xl font-bold tracking-tight text-indigo-600">
-          TrendSprout
-        </a>
+        <Link to="/" className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-lg font-bold text-white">
+            S
+          </span>
+          <span className="text-lg font-bold tracking-tight text-gray-900">
+            TrendSprout
+          </span>
+        </Link>
       </nav>
       <div className="flex flex-1 items-center justify-center px-6">
         <div className="w-full max-w-sm">
-          <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            Welcome back
+          </h1>
+          <p className="mt-2 text-gray-600">
             Log in to your TrendSprout account.
           </p>
           <form
@@ -29,7 +36,7 @@ function LoginPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="block text-sm font-medium text-gray-700"
               >
                 Email
               </label>
@@ -37,14 +44,14 @@ function LoginPage() {
                 id="email"
                 type="email"
                 required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                 placeholder="you@example.com"
               />
             </div>
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="block text-sm font-medium text-gray-700"
               >
                 Password
               </label>
@@ -52,25 +59,25 @@ function LoginPage() {
                 id="password"
                 type="password"
                 required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                 placeholder="••••••••"
               />
             </div>
             <button
               type="submit"
-              className="w-full rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors"
+              className="w-full rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-600 active:scale-[0.98]"
             >
               Log in
             </button>
           </form>
-          <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-center text-sm text-gray-500">
             Don't have an account?{" "}
-            <a
-              href="/signup"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+            <Link
+              to="/signup"
+              className="font-medium text-emerald-600 hover:text-emerald-500"
             >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>
