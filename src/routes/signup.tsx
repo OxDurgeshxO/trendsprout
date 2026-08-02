@@ -1,15 +1,41 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { setSession, createDemoSession } from "~/lib/auth";
 
 export const Route = createFileRoute("/signup")({
   component: SignupPage,
 });
 
 function SignupPage() {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !name) return;
+
+    setSession({
+      user: {
+        id: "usr_" + Date.now().toString(36),
+        email: email.trim(),
+        name: name.trim(),
+      },
+    });
+    navigate({ to: "/dashboard", replace: true });
+  };
+
+  const handleDemoSignup = () => {
+    createDemoSession("New Creator", "creator@trendsprout.ai");
+    navigate({ to: "/dashboard", replace: true });
+  };
+
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col bg-slate-50">
       <nav className="flex items-center justify-between px-6 py-4 sm:px-10">
         <Link to="/" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-lg font-bold text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-lg font-bold text-white shadow-md shadow-emerald-500/20">
             S
           </span>
           <span className="text-lg font-bold tracking-tight text-gray-900">
@@ -17,22 +43,31 @@ function SignupPage() {
           </span>
         </Link>
       </nav>
-      <div className="flex flex-1 items-center justify-center px-6">
-        <div className="w-full max-w-sm">
+      <div className="flex flex-1 items-center justify-center px-6 py-12">
+        <div className="w-full max-w-sm rounded-2xl border border-gray-200/80 bg-white p-8 shadow-xl shadow-slate-200/50 backdrop-blur-sm">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">
             Start creating
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-sm text-gray-600">
             $9/month — cancel anytime. No credit card required.
           </p>
-          <form
-            className="mt-8 space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // TODO: implement auth
-              alert("Authentication coming soon!");
-            }}
+
+          <button
+            type="button"
+            onClick={handleDemoSignup}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/70 px-4 py-2.5 text-sm font-semibold text-emerald-700 shadow-sm transition-all hover:bg-emerald-100/80 active:scale-[0.98]"
           >
+            <span>🚀</span> Instant Demo Workspace
+          </button>
+
+          <div className="relative my-6 flex items-center justify-center">
+            <div className="w-full border-t border-gray-200" />
+            <span className="absolute bg-white px-3 text-xs font-medium text-gray-400 uppercase tracking-wider">
+              Or sign up with email
+            </span>
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSignup}>
             <div>
               <label
                 htmlFor="name"
@@ -44,7 +79,9 @@ function SignupPage() {
                 id="name"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 placeholder="Your name"
               />
             </div>
@@ -59,7 +96,9 @@ function SignupPage() {
                 id="email"
                 type="email"
                 required
-                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 placeholder="you@example.com"
               />
             </div>
@@ -74,14 +113,16 @@ function SignupPage() {
                 id="password"
                 type="password"
                 required
-                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm shadow-sm outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 placeholder="At least 8 characters"
                 minLength={8}
               />
             </div>
             <button
               type="submit"
-              className="w-full rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-600 active:scale-[0.98]"
+              className="w-full rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-emerald-500/20 transition-all hover:bg-emerald-600 active:scale-[0.98]"
             >
               Create account
             </button>

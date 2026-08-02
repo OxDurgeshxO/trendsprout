@@ -13,6 +13,12 @@ export default defineConfig({
     // rejects a proxied request with "Blocked request".
     allowedHosts: true,
   },
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    minify: "esbuild",
+    target: "es2022",
+  },
   plugins: [
     tailwindcss(),
     tsConfigPaths({
