@@ -2,6 +2,8 @@
 
 TrendSprout is an AI-powered content generation studio designed for TikTok creators and digital brands. It eliminates creator block by generating fully coordinated content sets consisting of high-retention video concepts & hooks, engaging captions, and tiered hashtag clusters.
 
+Live Application: **[https://trendsprout.vercel.app](https://trendsprout.vercel.app)**
+
 ---
 
 ## 🛠️ Project Architecture & Tech Stack
