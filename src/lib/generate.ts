@@ -380,5 +380,6 @@ Respond ONLY with a valid JSON array of ContentSet objects with this exact struc
     return {
       success: true,
       data: library.slice(0, data.count),
+      error: undefined,
     } satisfies GenerateResponse;
   });

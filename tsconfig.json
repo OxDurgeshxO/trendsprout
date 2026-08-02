@@ -28,5 +28,6 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["serve.ts", "dist", "node_modules"]
 }

@@ -1,8 +1,6 @@
 // LLM Client for AI Content Generation
 // Supports OpenAI, Anthropic, and a mock fallback for development
 
-import type { GenerateRequest } from "./generation-types";
-
 const OPENAI_API_KEY = () => process.env.OPENAI_API_KEY;
 const ANTHROPIC_API_KEY = () => process.env.ANTHROPIC_API_KEY;
 
@@ -18,6 +16,7 @@ interface LLMRequest {
   systemPrompt: string;
   userPrompt: string;
   count?: number;
+  niche?: string;
 }
 
 interface LLMResponse {
@@ -196,7 +195,7 @@ const MOCK_CAPTION_TEMPLATES = [
   },
 ];
 
-function generateMockCaptions(req: GenerateRequest, count: number) {
+function generateMockCaptions(req: LLMRequest, count: number) {
   const niche = req.niche || "your niche";
   const items = [];
   for (let i = 0; i < count; i++) {
@@ -269,8 +268,8 @@ const MOCK_CONCEPT_TEMPLATES = [
   },
 ];
 
-function generateMockConcepts(req: GenerateRequest, count: number) {
-  return MOCK_CONCEPT_TEMPLATES.slice(0, count).map((t, i) => ({
+function generateMockConcepts(req: LLMRequest, count: number) {
+  return MOCK_CONCEPT_TEMPLATES.slice(0, count).map((t) => ({
     ...t,
     title: `${t.title} for ${req.niche || "your niche"}`,
     acts: t.acts.map((a) => ({ ...a, content: `${a.content} — ${req.niche || "niche"}-focused` })),
@@ -313,7 +312,7 @@ const MOCK_HASHTAG_TEMPLATES = [
   },
 ];
 
-function generateMockHashtags(req: GenerateRequest, count: number) {
+function generateMockHashtags(_req: LLMRequest, count: number) {
   return MOCK_HASHTAG_TEMPLATES.slice(0, count);
 }
 
