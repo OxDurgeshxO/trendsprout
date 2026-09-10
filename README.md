@@ -1,88 +1,111 @@
-# TrendSprout AI — TikTok Creator Platform
+# 🌱 TrendSprout AI — TikTok Creator Studio
 
-TrendSprout is an AI-powered content generation studio designed for TikTok creators and digital brands. It eliminates creator block by generating fully coordinated content sets consisting of high-retention video concepts & hooks, engaging captions, and tiered hashtag clusters.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-trendsprout.vercel.app-10b981?style=for-the-badge&logo=vercel)](https://trendsprout.vercel.app)
+[![React 19](https://img.shields.io/badge/React%2019-v19.2-61dafb?style=for-the-badge&logo=react)](https://react.dev)
+[![TanStack Start](https://img.shields.io/badge/TanStack%20Start-SSR%20Engine-ff4154?style=for-the-badge)](https://tanstack.com/start)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind%20CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5.9-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
 
-Live Application: **[https://trendsprout.vercel.app](https://trendsprout.vercel.app)**
+**TrendSprout AI** is an AI-powered content strategy studio engineered for TikTok creators, brands, and digital storytellers. It eliminates creator burnout by generating coordinated, high-retention content bundles consisting of:
+1. **Video Concepts & 3-Act Pacing Arcs** with explicit hook strategies, text overlays, and audio cues.
+2. **High-Retention Captions** with targeted hook styles and psychological engagement tactics (save, comment, share triggers).
+3. **Tiered Hashtag Matrices** scientifically clustered into broad discovery, targeted mid-tier, and niche community tags.
+
+Live Production Deployment: **[https://trendsprout.vercel.app](https://trendsprout.vercel.app)**
 
 ---
 
-## 🛠️ Project Architecture & Tech Stack
+## ✨ Key Capabilities & Algorithmic Strategy
 
-* **Frontend Framework**: React 19 (`^19.2.4`)
-* **Routing & SSR Engine**: TanStack Router (`^1.158.1`) & TanStack Start (`^1.158.3`)
-* **Build Tooling**: Vite 7 (`^7.3.1`) & TypeScript (`^5.9.3`)
-* **Styling & UI**: Tailwind CSS v4 (`^4.1.18`) with glassmorphism, responsive grids, and micro-animations
-* **Execution Environment**: Node.js / Bun compatible
+* **Coordinated 3-Part Content Sets**: Unlike generic AI copywriters that produce detached captions, TrendSprout aligns the video hook, pacing breakdown, caption, and hashtag clusters into a unified narrative.
+* **3-Act Video Breakdown & Hook Strategies**: Formats content into proven TikTok archetypes (Transformations, Exposes, Comparisons, Tutorials, and Listicles) with strict 0-3s hook requirements.
+* **Predictive Engagement Scoring**: Evaluates each concept across 4 key TikTok algorithm levers:
+  * 👁️ *Watch Time Retention*
+  * 🔄 *Shareability*
+  * 💬 *Comment Bait*
+  * 📌 *Save Likelihood*
+* **3-Tier Hashtag Clustering**: Avoids spammy tags (`#fyp`) in favor of balanced clusters (1–2 high-volume discovery tags + 1–2 mid-tier targeted tags + 1–2 high-conversion niche tags).
+* **Local Persistence & Export**: Saves generation history in `localStorage` across browser refreshes and provides one-click script export to formatted Markdown (`.md`) files.
+* **Zero-Config Showcase Engine + Live AI**: Runs instantly out-of-the-box with rich presets (Fashion, Fitness, Gaming, Travel, Food, Tech) and dynamic niche synthesis, with automatic live model generation whenever `GEMINI_API_KEY` or `OPENAI_API_KEY` is provided.
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+| Layer | Technology | Details |
+| :--- | :--- | :--- |
+| **Frontend Framework** | **React 19** (`^19.2.4`) | Modern React hooks, transitions, and concurrent rendering |
+| **Full-Stack / SSR** | **TanStack Start** (`^1.158.3`) | SSR Server Functions (`createServerFn`) protecting API keys |
+| **Client Routing** | **TanStack Router** (`^1.158.1`) | Type-safe, file-based routing and navigation |
+| **Styling & Design** | **Tailwind CSS v4** (`^4.1.18`) | Native CSS variables, glassmorphism, responsive grids |
+| **Build Tooling** | **Vite 7** (`^7.3.1`) & **TypeScript** | Lightning-fast HMR and strict type validation |
+| **Deployment** | **Vercel** / Node / Bun | Edge SSR & static asset streaming |
 
 ```
-site/
+trendsprout/
 ├── src/
 │   ├── lib/
-│   │   ├── auth.ts         # Local storage session management & demo auth helpers
-│   │   └── generate.ts     # TanStack Start server function & content generation library
+│   │   ├── auth.ts          # Session management & instant demo workspace helpers
+│   │   ├── database.ts      # Planned Supabase relational schema & typing
+│   │   ├── generate.ts      # Unified server function & multi-provider generation engine
+│   │   └── prompts.ts       # Algorithmic TikTok hook & hashtag prompt engineering
 │   ├── routes/
-│   │   ├── __root.tsx      # Root HTML shell & global asset provider
-│   │   ├── index.tsx       # Landing page (hero, features, pricing, CTA, social proof)
-│   │   ├── dashboard.tsx   # Interactive AI generation workspace with copy-to-clipboard feedback
-│   │   ├── login.tsx       # Login page with password and one-click demo login options
-│   │   └── signup.tsx      # Signup page with direct onboarding and demo workspace launch
+│   │   ├── __root.tsx       # Root document shell, SEO metadata & favicon links
+│   │   ├── index.tsx        # High-conversion SaaS landing page (hero, features, pricing)
+│   │   ├── dashboard.tsx    # AI Studio workspace with copy tools, persistence & export
+│   │   ├── login.tsx        # Authentication page with 1-click demo workspace
+│   │   └── signup.tsx       # Creator onboarding flow
 │   ├── styles/
-│   │   └── app.css         # Tailwind v4 utility setup
-│   ├── routeTree.gen.ts    # Auto-generated TanStack router tree
-│   └── router.tsx          # Router instantiation
-├── vite.config.ts          # Vite & SSR configuration
-└── package.json            # Scripts & project dependencies
+│   │   └── app.css          # Tailwind CSS v4 entrypoint
+│   ├── routeTree.gen.ts     # Auto-generated type-safe router tree
+│   └── router.tsx           # Router instantiation
+├── public/                  # Favicons, webmanifest, and static assets
+├── vite.config.ts           # Vite, React, Tailwind v4, & TanStack Start config
+└── package.json             # Scripts & dependencies
 ```
 
 ---
 
-## ⚙️ Key Components & Functions
-
-### 1. `auth.ts`
-* `getSession()`: Safely retrieves and parses user session data with `try-catch` guards against restricted browser storage environments.
-* `setSession(session)`: Persists user state to `localStorage`.
-* `clearSession()`: Clears active session on logout.
-* `createDemoSession(name, email)`: Generates an instant demo session for rapid evaluation.
-
-### 2. `generate.ts`
-* `generateContent`: TanStack Start `createServerFn` endpoint that validates `GenerateRequest` parameters (niche, audience, tone, count) and returns coordinated `ContentSet` bundles matching specialized content libraries (Fashion, Fitness, Gaming, etc.).
-
-### 3. `dashboard.tsx`
-* `Dashboard`: Main studio workspace component. Features auto-session detection, preset tags, loading skeletons, error boundaries, and formatted `ContentSetCard` rendering.
-* `ContentSetCard`: Interactive card displaying video hook strategy, act timelines, estimated engagement metrics (watch retention, shareability, comment bait, save likelihood), and defensive copy-to-clipboard functionality for captions and hashtag sets.
-
----
-
-## 🐛 Resolved Audit Findings & Bug Fixes
-
-1. **Hydration & Session Flash**: Guarded `dashboard.tsx` against hydration mismatch by integrating smooth state fallback initialization and default demo session fallback when unauthenticated users visit directly.
-2. **Missing Windows Binary Dependencies**: Resolved optional binary loading issues for `@rollup/rollup-win32-x64-msvc`, `lightningcss-win32-x64-msvc`, and `@tailwindcss/oxide-win32-x64-msvc` to ensure smooth multi-platform compilation on Windows.
-3. **Interactive Authentication**: Upgraded static placeholder alerts on `/login` and `/signup` with functional session creation handlers and instant one-click demo workspace buttons.
-4. **Copy API Resilience**: Added fallback text selection copy mechanisms (`document.execCommand("copy")`) alongside `navigator.clipboard.writeText` to prevent runtime crashes in unsecure or restricted Web views.
-
----
-
-## 🚀 Setup & Execution Commands
+## 🚀 Quickstart & Local Development
 
 ### Prerequisites
 - Node.js (v18+) or Bun
 
-### 1. Install Dependencies
+### 1. Clone the repository
+```bash
+git clone https://github.com/OxDurgeshxO/trendsprout.git
+cd trendsprout
+```
+
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 2. Run Development Server
+### 3. Run development server
 ```bash
 npm run dev
 ```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-### 3. Build for Production
+### 4. Optional: Enable Live AI Generation
+Create a `.env` file in the project root:
+```env
+# Google Gemini API Key
+VITE_GEMINI_API_KEY=your_gemini_api_key
+
+# Or OpenAI API Key
+OPENAI_API_KEY=your_openai_api_key
+```
+*(If no API key is set, TrendSprout seamlessly utilizes its deterministic Showcase Engine with complete preset coverage).*
+
+### 5. Typecheck and Production Build
 ```bash
+npm run typecheck
 npm run build
 ```
 
-### 4. Start Production Server
-```bash
-npm run start
-```
+---
+
+## 📄 License
+MIT License. Created by [Durgesh](https://github.com/OxDurgeshxO).

@@ -39,10 +39,10 @@ function Home() {
             </a>
           </nav>
           <Link
-            to="/signup"
+            to="/dashboard"
             className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-600 hover:shadow-md active:scale-95"
           >
-            Get started
+            Open Studio
           </Link>
         </div>
       </header>
@@ -69,10 +69,10 @@ function Home() {
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              to="/signup"
+              to="/dashboard"
               className="inline-flex w-full items-center justify-center rounded-full bg-emerald-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all hover:bg-emerald-600 hover:shadow-xl active:scale-95 sm:w-auto"
             >
-              Try it free
+              Launch Studio Demo
               <svg
                 className="ml-2 h-4 w-4"
                 fill="none"
@@ -238,13 +238,13 @@ function Home() {
                 ))}
               </ul>
               <Link
-                to="/signup"
+                to="/dashboard"
                 className="flex w-full items-center justify-center rounded-full bg-emerald-500 px-6 py-3 font-semibold text-white shadow-md transition-all hover:bg-emerald-600 hover:shadow-lg active:scale-95"
               >
-                Start your 7-day free trial
+                Launch Studio Demo
               </Link>
               <p className="mt-3 text-center text-xs text-gray-400">
-                No credit card required
+                Interactive showcase • No credit card required
               </p>
             </div>
           </div>
@@ -263,10 +263,10 @@ function Home() {
           </p>
           <div className="mt-10">
             <Link
-              to="/signup"
+              to="/dashboard"
               className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-emerald-700 shadow-lg transition-all hover:bg-emerald-50 hover:shadow-xl active:scale-95"
             >
-              Get started free
+              Open Free Demo Studio
               <svg
                 className="ml-2 h-4 w-4"
                 fill="none"

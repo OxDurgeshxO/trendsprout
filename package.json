@@ -1,5 +1,7 @@
 {
-  "name": "team-site-template",
+  "name": "trendsprout-ai",
+  "version": "1.0.0",
+  "description": "AI-powered TikTok content creation studio built with React 19, TanStack Start & Router, and Tailwind CSS v4.",
   "private": true,
   "sideEffects": false,
   "type": "module",

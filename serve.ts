@@ -57,4 +57,4 @@ for (let attempt = 1; ; attempt++) {
   }
 }
 
-console.log(`team-site serving on http://${HOST}:${String(PORT)}`);
+console.log(`TrendSprout AI serving on http://${HOST}:${String(PORT)}`);

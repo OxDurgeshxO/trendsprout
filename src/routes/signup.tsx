@@ -55,10 +55,13 @@ function SignupPage() {
           <button
             type="button"
             onClick={handleDemoSignup}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/70 px-4 py-2.5 text-sm font-semibold text-emerald-700 shadow-sm transition-all hover:bg-emerald-100/80 active:scale-[0.98]"
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/20 transition-all hover:bg-emerald-600 active:scale-[0.98]"
           >
             <span>🚀</span> Instant Demo Workspace
           </button>
+          <p className="mt-2 text-center text-xs text-emerald-700 font-medium">
+            Interactive Showcase Mode • Direct studio access
+          </p>
 
           <div className="relative my-6 flex items-center justify-center">
             <div className="w-full border-t border-gray-200" />

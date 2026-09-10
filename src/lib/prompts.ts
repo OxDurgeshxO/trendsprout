@@ -1,7 +1,7 @@
-// System prompts for AI content generation
-// Source: /home/team/shared/trendsprout-prompt-strategy.md
+// System prompts & algorithms for AI TikTok content generation
+// Defines prompt strategies for high retention hooks, act structuring, and tiered hashtags.
 
-import type { GenerateRequest } from "./generation-types";
+import type { GenerateRequest } from "./generate";
 
 /**
  * Build the user prompt string from the request parameters.
