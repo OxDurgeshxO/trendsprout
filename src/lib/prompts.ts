@@ -10,7 +10,8 @@ function buildUserPrompt(req: GenerateRequest): string {
   let prompt = `Niche: ${req.niche}\n`;
   if (req.audience) prompt += `Audience: ${req.audience}\n`;
   if (req.tone) prompt += `Tone: ${req.tone}\n`;
-  if (req.brand_terms?.length) prompt += `Brand Terms: ${req.brand_terms.join(", ")}\n`;
+  if (req.brand_terms?.length)
+    prompt += `Brand Terms: ${req.brand_terms.join(", ")}\n`;
   prompt += `Count: ${req.count ?? 3}\n`;
   return prompt;
 }

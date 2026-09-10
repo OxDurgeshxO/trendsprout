@@ -1,6 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
-import { generateContent, type ContentSet, type GenerateRequest } from "~/lib/generate";
+import {
+  generateContent,
+  type ContentSet,
+  type GenerateRequest,
+} from "~/lib/generate";
 import { getSession, clearSession, createDemoSession } from "~/lib/auth";
 
 export const Route = createFileRoute("/dashboard")({
@@ -80,18 +84,24 @@ function Dashboard() {
         // Persist to local storage so page refresh retains work
         try {
           localStorage.setItem(SAVED_NICHE_KEY, niche.trim());
-          localStorage.setItem(SAVED_RESULTS_KEY, JSON.stringify(response.data));
+          localStorage.setItem(
+            SAVED_RESULTS_KEY,
+            JSON.stringify(response.data),
+          );
         } catch {
           // Ignore write failures
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        const msg =
+          err instanceof Error
+            ? err.message
+            : "Something went wrong. Please try again.";
         setError(msg);
       } finally {
         setLoading(false);
       }
     },
-    [niche, audience, tone]
+    [niche, audience, tone],
   );
 
   // ─── Clear / Reset History ───
@@ -108,13 +118,23 @@ function Dashboard() {
   // ─── Bulk Export All Sets as Markdown ───
   const handleExportAllMarkdown = () => {
     if (!results || results.length === 0) return;
-    const md = results.map((s) => formatSetMarkdown(s, niche || "TikTok")).join("\n\n---\n\n");
-    downloadFile(md, `trendsprout-${(niche || "content").toLowerCase().replace(/\s+/g, "-")}-scripts.md`);
+    const md = results
+      .map((s) => formatSetMarkdown(s, niche || "TikTok"))
+      .join("\n\n---\n\n");
+    downloadFile(
+      md,
+      `trendsprout-${(niche || "content").toLowerCase().replace(/\s+/g, "-")}-scripts.md`,
+    );
   };
 
   // ─── Session info ───
   const initials = session?.user?.name
-    ? session.user.name.split(" ").map((s) => s[0]).join("").toUpperCase().slice(0, 2)
+    ? session.user.name
+        .split(" ")
+        .map((s) => s[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : "CS";
 
   // ─── Logout ───
@@ -172,7 +192,8 @@ function Dashboard() {
               Generate viral TikTok content
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              Enter your niche to generate coordinated sets: retention hooks, act breakdowns, captions & tiered hashtags.
+              Enter your niche to generate coordinated sets: retention hooks,
+              act breakdowns, captions & tiered hashtags.
             </p>
           </div>
 
@@ -200,7 +221,10 @@ function Dashboard() {
           <form onSubmit={handleGenerate} className="space-y-5">
             <div className="grid gap-4 sm:grid-cols-3">
               <div>
-                <label htmlFor="niche" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700">
+                <label
+                  htmlFor="niche"
+                  className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700"
+                >
                   Your niche <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -214,7 +238,10 @@ function Dashboard() {
                 />
               </div>
               <div>
-                <label htmlFor="audience" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700">
+                <label
+                  htmlFor="audience"
+                  className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700"
+                >
                   Target audience
                 </label>
                 <input
@@ -228,7 +255,10 @@ function Dashboard() {
                 />
               </div>
               <div>
-                <label htmlFor="tone" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700">
+                <label
+                  htmlFor="tone"
+                  className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-gray-700"
+                >
                   Tone
                 </label>
                 <select
@@ -250,24 +280,28 @@ function Dashboard() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-1 border-t border-gray-100">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-medium text-gray-400 mr-1">Presets:</span>
-                {["Fashion", "Fitness", "Gaming", "Travel", "Food", "Tech"].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => {
-                      setNiche(n);
-                      setError(null);
-                    }}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium transition-all ${
-                      niche.toLowerCase() === n.toLowerCase()
-                        ? "border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm"
-                        : "border-gray-200 text-gray-600 hover:border-emerald-300 hover:bg-emerald-50/50 hover:text-emerald-700"
-                    }`}
-                  >
-                    {n}
-                  </button>
-                ))}
+                <span className="text-xs font-medium text-gray-400 mr-1">
+                  Presets:
+                </span>
+                {["Fashion", "Fitness", "Gaming", "Travel", "Food", "Tech"].map(
+                  (n) => (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => {
+                        setNiche(n);
+                        setError(null);
+                      }}
+                      className={`rounded-full border px-3 py-1 text-xs font-medium transition-all ${
+                        niche.toLowerCase() === n.toLowerCase()
+                          ? "border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm"
+                          : "border-gray-200 text-gray-600 hover:border-emerald-300 hover:bg-emerald-50/50 hover:text-emerald-700"
+                      }`}
+                    >
+                      {n}
+                    </button>
+                  ),
+                )}
               </div>
               <button
                 type="submit"
@@ -276,9 +310,24 @@ function Dashboard() {
               >
                 {loading ? (
                   <>
-                    <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    <svg
+                      className="h-4 w-4 animate-spin"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
                     </svg>
                     Generating...
                   </>
@@ -321,7 +370,8 @@ function Dashboard() {
               Your generated content sets will appear here
             </h3>
             <p className="mx-auto mt-2 max-w-lg text-sm text-gray-500">
-              Select one of the presets or type any custom niche to generate coordinated scripts, hooks, captions, and hashtag matrices.
+              Select one of the presets or type any custom niche to generate
+              coordinated scripts, hooks, captions, and hashtag matrices.
             </p>
           </div>
         )}
@@ -330,7 +380,10 @@ function Dashboard() {
         {loading && (
           <div className="space-y-6">
             {[1, 2].map((i) => (
-              <div key={i} className="animate-pulse rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div
+                key={i}
+                className="animate-pulse rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
                 <div className="mb-4 h-5 w-48 rounded bg-gray-200" />
                 <div className="mb-3 h-3 w-full rounded bg-gray-100" />
                 <div className="mb-3 h-3 w-5/6 rounded bg-gray-100" />
@@ -349,13 +402,20 @@ function Dashboard() {
               </span>
               {providerTag && (
                 <span className="rounded-full bg-slate-200/80 px-2.5 py-0.5 text-[11px] font-medium text-slate-700">
-                  Engine: {providerTag === "live" ? "✨ Live Model" : "⚡ Showcase Engine"}
+                  Engine:{" "}
+                  {providerTag === "live"
+                    ? "✨ Live Model"
+                    : "⚡ Showcase Engine"}
                 </span>
               )}
             </div>
 
             {results.map((set) => (
-              <ContentSetCard key={set.content_set_id} set={set} niche={niche} />
+              <ContentSetCard
+                key={set.content_set_id}
+                set={set}
+                niche={niche}
+              />
             ))}
 
             <div className="rounded-xl border border-gray-200 bg-white px-6 py-4 text-center shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -414,7 +474,10 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
 
   const handleDownloadSingle = () => {
     const md = formatSetMarkdown(set, niche);
-    downloadFile(md, `set-${set.content_set_id}-${c.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.md`);
+    downloadFile(
+      md,
+      `set-${set.content_set_id}-${c.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.md`,
+    );
     setDownloaded(true);
     setTimeout(() => setDownloaded(false), 2000);
   };
@@ -496,15 +559,25 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
           <div>
             <div className="mb-3 flex items-center gap-2">
               <span className="text-lg">🎬</span>
-              <span className="text-sm font-bold text-gray-900">Video Concept</span>
+              <span className="text-sm font-bold text-gray-900">
+                Video Concept
+              </span>
             </div>
 
             {/* Hook */}
             <div className="mb-3 rounded-xl bg-rose-50/80 p-3.5 border border-rose-100">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-rose-600">Hook Strategy</p>
-              <p className="mt-1 text-xs font-medium text-gray-800">{c.hook.description}</p>
-              <p className="mt-1.5 text-xs text-rose-600 font-semibold">Overlay: &ldquo;{c.hook.text_overlay}&rdquo;</p>
-              <p className="mt-1 text-[11px] text-gray-500">Audio start: &ldquo;{c.hook.first_3_words_audio}&rdquo;</p>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-rose-600">
+                Hook Strategy
+              </p>
+              <p className="mt-1 text-xs font-medium text-gray-800">
+                {c.hook.description}
+              </p>
+              <p className="mt-1.5 text-xs text-rose-600 font-semibold">
+                Overlay: &ldquo;{c.hook.text_overlay}&rdquo;
+              </p>
+              <p className="mt-1 text-[11px] text-gray-500">
+                Audio start: &ldquo;{c.hook.first_3_words_audio}&rdquo;
+              </p>
             </div>
 
             {/* Acts */}
@@ -514,7 +587,9 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
                   <span className="w-14 flex-shrink-0 rounded-md bg-gray-100 px-1.5 py-0.5 text-center font-bold text-gray-600 text-[10px]">
                     {act.time}
                   </span>
-                  <span className="text-gray-600 leading-snug">{act.content}</span>
+                  <span className="text-gray-600 leading-snug">
+                    {act.content}
+                  </span>
                 </div>
               ))}
               {c.acts.length > 2 && (
@@ -531,7 +606,9 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
             <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
               <div>
                 <span className="font-semibold text-gray-700">Audio:</span>{" "}
-                {c.audio_suggestion.length > 35 ? c.audio_suggestion.slice(0, 35) + "…" : c.audio_suggestion}
+                {c.audio_suggestion.length > 35
+                  ? c.audio_suggestion.slice(0, 35) + "…"
+                  : c.audio_suggestion}
               </div>
               <div>
                 <span className="font-semibold text-gray-700">Length:</span>{" "}
@@ -541,15 +618,25 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
 
             {/* Engagement scores */}
             <div className="mt-3 grid grid-cols-4 gap-1.5">
-              {([
-                ["Watch", c.predicted_engagement_scores.watch_time_retention],
-                ["Share", c.predicted_engagement_scores.shareability],
-                ["Comment", c.predicted_engagement_scores.comment_bait],
-                ["Save", c.predicted_engagement_scores.save_likelihood],
-              ] as const).map(([label, score]) => (
-                <div key={label} className="rounded-lg bg-emerald-50/60 border border-emerald-100 p-1.5 text-center">
-                  <p className="text-[10px] font-medium text-emerald-700">{label}</p>
-                  <p className="text-xs font-extrabold text-emerald-900">{score}<span className="text-[9px] text-emerald-600">/10</span></p>
+              {(
+                [
+                  ["Watch", c.predicted_engagement_scores.watch_time_retention],
+                  ["Share", c.predicted_engagement_scores.shareability],
+                  ["Comment", c.predicted_engagement_scores.comment_bait],
+                  ["Save", c.predicted_engagement_scores.save_likelihood],
+                ] as const
+              ).map(([label, score]) => (
+                <div
+                  key={label}
+                  className="rounded-lg bg-emerald-50/60 border border-emerald-100 p-1.5 text-center"
+                >
+                  <p className="text-[10px] font-medium text-emerald-700">
+                    {label}
+                  </p>
+                  <p className="text-xs font-extrabold text-emerald-900">
+                    {score}
+                    <span className="text-[9px] text-emerald-600">/10</span>
+                  </p>
                 </div>
               ))}
             </div>
@@ -562,7 +649,9 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-lg">#️⃣</span>
-                <span className="text-sm font-bold text-gray-900">Hashtags</span>
+                <span className="text-sm font-bold text-gray-900">
+                  Hashtags
+                </span>
               </div>
               <span className="rounded-full bg-emerald-100/70 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800">
                 {set.hashtags.reach_quality}
@@ -570,16 +659,35 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
             </div>
 
             <div className="space-y-3">
-              {([
-                ["High volume", set.hashtags.tier_breakdown.high_volume, "bg-blue-50 text-blue-700 border-blue-200/70"],
-                ["Mid tier", set.hashtags.tier_breakdown.mid_tier, "bg-emerald-50 text-emerald-700 border-emerald-200/70"],
-                ["Niche", set.hashtags.tier_breakdown.niche, "bg-amber-50 text-amber-700 border-amber-200/70"],
-              ] as const).map(([label, tags, styles]) => (
+              {(
+                [
+                  [
+                    "High volume",
+                    set.hashtags.tier_breakdown.high_volume,
+                    "bg-blue-50 text-blue-700 border-blue-200/70",
+                  ],
+                  [
+                    "Mid tier",
+                    set.hashtags.tier_breakdown.mid_tier,
+                    "bg-emerald-50 text-emerald-700 border-emerald-200/70",
+                  ],
+                  [
+                    "Niche",
+                    set.hashtags.tier_breakdown.niche,
+                    "bg-amber-50 text-amber-700 border-amber-200/70",
+                  ],
+                ] as const
+              ).map(([label, tags, styles]) => (
                 <div key={label}>
-                  <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">{label}</p>
+                  <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                    {label}
+                  </p>
                   <div className="flex flex-wrap gap-1">
                     {tags.map((tag) => (
-                      <span key={tag} className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${styles}`}>
+                      <span
+                        key={tag}
+                        className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${styles}`}
+                      >
                         {tag}
                       </span>
                     ))}
@@ -592,12 +700,16 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
               <summary className="cursor-pointer text-xs font-semibold text-gray-500 hover:text-gray-700">
                 Why this hashtag mix?
               </summary>
-              <p className="mt-1.5 text-xs leading-relaxed text-gray-500 bg-slate-50 p-2.5 rounded-lg">{set.hashtags.rationale}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-gray-500 bg-slate-50 p-2.5 rounded-lg">
+                {set.hashtags.rationale}
+              </p>
             </details>
           </div>
 
           <button
-            onClick={() => copyText(set.hashtags.hashtags.join(" "), setCopiedHashtags)}
+            onClick={() =>
+              copyText(set.hashtags.hashtags.join(" "), setCopiedHashtags)
+            }
             className={`mt-4 w-full rounded-xl border px-3 py-2 text-xs font-semibold shadow-sm transition-all flex items-center justify-center gap-1.5 ${
               copiedHashtags
                 ? "border-emerald-400 bg-emerald-500 text-white"
@@ -620,7 +732,8 @@ function ContentSetCard({ set, niche }: { set: ContentSet; niche: string }) {
       {/* Coherence note */}
       <div className="border-t border-gray-100 bg-slate-50/70 px-6 py-2.5">
         <p className="text-center text-xs text-gray-500">
-          <span className="font-bold text-gray-700">Coherence Note:</span> {set.coherence_note}
+          <span className="font-bold text-gray-700">Coherence Note:</span>{" "}
+          {set.coherence_note}
         </p>
       </div>
     </div>

@@ -41,7 +41,10 @@ export function clearSession(): void {
   }
 }
 
-export function createDemoSession(name = "Creator Studio", email = "creator@trendsprout.ai"): Session {
+export function createDemoSession(
+  name = "Creator Studio",
+  email = "creator@trendsprout.ai",
+): Session {
   const session: Session = {
     user: {
       id: "usr_" + Math.random().toString(36).substring(2, 9),

@@ -6,16 +6,16 @@
 
 Not Next.js, despite preference, for these reasons:
 
-| Factor | TanStack Start | Next.js |
-|--------|---------------|---------|
-| Memory pressure | Lightweight (Vite) | Heavy (Webpack/Turbopack) |
-| React + SSR | ✅ | ✅ |
-| File-based routing | ✅ | ✅ |
-| Server functions | ✅ (createServerFn) | ✅ (Server Actions) |
-| API routes | ✅ (routes/api/*.ts) | ✅ |
-| Tailwind v4 | ✅ | ✅ |
-| Already deployed | ✅ — live on port 3000 | Would need migration |
-| Migration cost | $0 | High — full rewrite |
+| Factor             | TanStack Start         | Next.js                   |
+| ------------------ | ---------------------- | ------------------------- |
+| Memory pressure    | Lightweight (Vite)     | Heavy (Webpack/Turbopack) |
+| React + SSR        | ✅                     | ✅                        |
+| File-based routing | ✅                     | ✅                        |
+| Server functions   | ✅ (createServerFn)    | ✅ (Server Actions)       |
+| API routes         | ✅ (routes/api/\*.ts)  | ✅                        |
+| Tailwind v4        | ✅                     | ✅                        |
+| Already deployed   | ✅ — live on port 3000 | Would need migration      |
+| Migration cost     | $0                     | High — full rewrite       |
 
 ## Project Structure
 
@@ -44,36 +44,39 @@ site/
 ## Database Schema (Target: Supabase)
 
 ### `users`
-| Column | Type | Notes |
-|--------|------|-------|
-| id | uuid | PK, default gen_random_uuid() |
-| email | text | unique, not null |
-| name | text | |
-| created_at | timestamptz | default now() |
-| updated_at | timestamptz | |
+
+| Column     | Type        | Notes                         |
+| ---------- | ----------- | ----------------------------- |
+| id         | uuid        | PK, default gen_random_uuid() |
+| email      | text        | unique, not null              |
+| name       | text        |                               |
+| created_at | timestamptz | default now()                 |
+| updated_at | timestamptz |                               |
 
 ### `subscriptions`
-| Column | Type | Notes |
-|--------|------|-------|
-| id | uuid | PK |
-| user_id | uuid | FK → users.id |
-| stripe_customer_id | text | |
-| stripe_subscription_id | text | |
-| status | text | 'active', 'canceled', 'past_due' |
-| current_period_start | timestamptz | |
-| current_period_end | timestamptz | |
-| created_at | timestamptz | |
+
+| Column                 | Type        | Notes                            |
+| ---------------------- | ----------- | -------------------------------- |
+| id                     | uuid        | PK                               |
+| user_id                | uuid        | FK → users.id                    |
+| stripe_customer_id     | text        |                                  |
+| stripe_subscription_id | text        |                                  |
+| status                 | text        | 'active', 'canceled', 'past_due' |
+| current_period_start   | timestamptz |                                  |
+| current_period_end     | timestamptz |                                  |
+| created_at             | timestamptz |                                  |
 
 ### `generations`
-| Column | Type | Notes |
-|--------|------|-------|
-| id | uuid | PK |
-| user_id | uuid | FK → users.id |
-| niche | text | |
-| content_type | text | 'caption', 'concept', 'hashtags', 'all' |
-| topic | text | nullable |
-| result | jsonb | { captions, concepts, hashtags } |
-| created_at | timestamptz | |
+
+| Column       | Type        | Notes                                   |
+| ------------ | ----------- | --------------------------------------- |
+| id           | uuid        | PK                                      |
+| user_id      | uuid        | FK → users.id                           |
+| niche        | text        |                                         |
+| content_type | text        | 'caption', 'concept', 'hashtags', 'all' |
+| topic        | text        | nullable                                |
+| result       | jsonb       | { captions, concepts, hashtags }        |
+| created_at   | timestamptz |                                         |
 
 ## Key Decisions
 
