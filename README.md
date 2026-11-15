@@ -147,3 +147,18 @@ npm run build
 ## 📄 License
 
 MIT License. Created by [Durgesh](https://github.com/OxDurgeshxO).
+
+
+## 🎬 Content Engine Architecture
+
+```mermaid
+flowchart TD
+    User["Creator Input (Niche / Prompt / Trend Goal)"] --> LLM["LLM Script & Concept Synthesis"]
+    LLM --> Story["3-Act Visual Storyboard Decomposition"]
+    LLM --> Audio["Audio Hook & Voiceover Pacing Engine"]
+    LLM --> Copy["Hashtag Optimization & SEO Captions"]
+    Story --> Studio["Full-Stack Content Studio (TanStack Start + Tailwind v4)"]
+    Audio --> Studio
+    Copy --> Studio
+    Studio --> Export["One-Click Export & Multi-Platform Publisher"]
+```
