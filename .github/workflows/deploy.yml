@@ -1,4 +1,7 @@
 name: Deploy TrendSprout
+permissions:
+  contents: read
+
 
 on:
   push:
