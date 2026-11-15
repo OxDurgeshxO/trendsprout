@@ -33,6 +33,33 @@ Live Production Deployment: **[https://trendsprout.vercel.app](https://trendspro
 
 ## 🛠️ Architecture & Tech Stack
 
+`mermaid
+flowchart TD
+    subgraph InputTier['Creator Input']
+        Topic['Topic / Hook Prompt']
+        Style['Pacing & Emotion Profile']
+    end
+
+    subgraph Engine['TrendSprout AI Engine (TanStack Start Server Fn)']
+        Router['SSR & API Protection']
+        LLM['Google Gemini / OpenAI Pipeline']
+    end
+
+    subgraph OutputBundle['Generated Production Bundle']
+        Arc['3-Act Pacing Arc & Video Concepts']
+        Cap['Retention-Optimized Captions']
+        Tags['Tiered Hashtag Clusters']
+    end
+
+    InputTier --> Engine
+    Engine --> OutputBundle
+
+    style InputTier fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style Engine fill:#1e293b,stroke:#06b6d4,stroke-width:2px,color:#fff
+    style OutputBundle fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+`
+
+
 | Layer                  | Technology                             | Details                                                     |
 | :--------------------- | :------------------------------------- | :---------------------------------------------------------- |
 | **Frontend Framework** | **React 19** (`^19.2.4`)               | Modern React hooks, transitions, and concurrent rendering   |
