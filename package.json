@@ -38,7 +38,7 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.68.2",
-    "@tailwindcss/oxide-win32-x64-msvc": "^4.3.3",
+    "@tailwindcss/oxide-win32-x64-msvc": "^4.3.5",
     "lightningcss-win32-x64-msvc": "^1.33.0"
   }
 }
