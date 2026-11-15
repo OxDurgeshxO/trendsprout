@@ -1,5 +1,7 @@
-// Temporary auth until Supabase is connected by the Lead Engineer.
-// This uses localStorage so users survive page refreshes but NOT server-side auth.
+// Supabase Authentication with Resilient Local Fallback
+// Provides user authentication, session persistence, and seamless demo mode.
+
+import { getSupabaseClient } from "./database";
 
 export interface Session {
   user: {
@@ -62,4 +64,78 @@ export function requireAuth(): Session {
     throw new Error("Not authenticated");
   }
   return session;
+}
+
+export async function signInWithEmail(email: string, password: string): Promise<Session> {
+  const client = getSupabaseClient();
+  if (!client) {
+    // Offline / Demo fallback
+    const session = createDemoSession(email.split("@")[0], email);
+    return session;
+  }
+
+  const { data, error } = await client.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error || !data.user) {
+    throw new Error(error?.message || "Authentication failed");
+  }
+
+  const session: Session = {
+    user: {
+      id: data.user.id,
+      email: data.user.email || email,
+      name: data.user.user_metadata?.name || email.split("@")[0],
+    },
+  };
+  setSession(session);
+  return session;
+}
+
+export async function signUpWithEmail(
+  email: string,
+  password: string,
+  name: string
+): Promise<Session> {
+  const client = getSupabaseClient();
+  if (!client) {
+    const session = createDemoSession(name, email);
+    return session;
+  }
+
+  const { data, error } = await client.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { name },
+    },
+  });
+
+  if (error || !data.user) {
+    throw new Error(error?.message || "Sign up failed");
+  }
+
+  const session: Session = {
+    user: {
+      id: data.user.id,
+      email: data.user.email || email,
+      name,
+    },
+  };
+  setSession(session);
+  return session;
+}
+
+export async function signOut(): Promise<void> {
+  const client = getSupabaseClient();
+  if (client) {
+    try {
+      await client.auth.signOut();
+    } catch (e) {
+      console.warn("Supabase signOut warning:", e);
+    }
+  }
+  clearSession();
 }
