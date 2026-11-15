@@ -13,12 +13,28 @@ export interface Session {
 
 const SESSION_KEY = "trendsprout_session";
 
+function encodePayload(data: string): string {
+  try {
+    return btoa(encodeURIComponent(data));
+  } catch {
+    return data;
+  }
+}
+
+function decodePayload(encoded: string): string {
+  try {
+    return decodeURIComponent(atob(encoded));
+  } catch {
+    return encoded;
+  }
+}
+
 export function getSession(): Session | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = localStorage.getItem(SESSION_KEY);
     if (!raw) return null;
-    return JSON.parse(raw) as Session;
+    return JSON.parse(decodePayload(raw)) as Session;
   } catch (e) {
     console.warn("Failed to access session from localStorage:", e);
     return null;
@@ -28,7 +44,7 @@ export function getSession(): Session | null {
 export function setSession(session: Session): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    localStorage.setItem(SESSION_KEY, encodePayload(JSON.stringify(session)));
   } catch (e) {
     console.warn("Failed to save session to localStorage:", e);
   }
